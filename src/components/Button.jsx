@@ -34,13 +34,11 @@ const ButtonTag = styled.button`
     }
 `
 
-function Button({children, disabled, onclick}) {
+function Button({children, disabled, onClick, ...props}) {
     return (
-        <div>
-            <ButtonTag disabled={disabled} onclick={onclick}>
-                {children}
-            </ButtonTag>
-        </div>
+        <ButtonTag disabled={disabled} onClick={onClick} {...props}>
+            {children}
+        </ButtonTag>
     )
 }
 
