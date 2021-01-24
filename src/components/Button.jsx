@@ -12,12 +12,20 @@ const ButtonTag = styled.button`
     opacity: ${props => props.disabled ? '0.5' : ''};
     color: ${props => props.disabled ? '#2C2738' : '#EBF4F8'};
     background: ${props => props.disabled ? '#DBE2EA' : '#0880AE'};
-    box-shadow: 0px 4px 8px rgba(44, 39, 56, 0.08);
+    box-shadow: ${props => props.disabled 
+                    ? 
+                    '0px 4px 8px rgba(44, 39, 56, 0.08)' 
+                    : 
+                    '0px 2px 4px rgba(44, 39, 56, 0.08), 0px 4px 8px rgba(44, 39, 56, 0.08);'
+                };
 
     &:hover {
-        box-shadow: 0px 12px 24px rgba(44, 39, 56, 0.08), 
-                    0px 24px 48px rgba(44, 39, 56, 0.16);
-    }
+        box-shadow: ${props => props.disabled 
+            ? 
+            '' 
+            : 
+            '0px 12px 24px rgba(44, 39, 56, 0.08), 0px 24px 48px rgba(44, 39, 56, 0.16)'
+    };
 
     &:active {
         border: 2px solid rgba(44, 39, 56, 0.86);
