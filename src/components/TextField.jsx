@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const StyledTextField = styled.input`
+    margin: ${props => props.margin ? props.margin : 0};
     padding: 1rem;
     border: 1px solid #DBE2EA;
     box-shadow: 0px 4px 8px rgba(44, 39, 56, 0.04);

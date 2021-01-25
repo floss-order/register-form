@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const StyledLabel = styled.label`
+    margin: ${props => props.margin ? props.margin : 0};
     font-weight: 500;
     font-size: 1rem;
     color: #756F86;

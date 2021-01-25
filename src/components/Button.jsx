@@ -5,8 +5,9 @@ import PropTypes from 'prop-types'
 const ButtonTag = styled.button`
     border: none;
     border-radius: 6px;
-    width: 180px;
-    height: 56px;
+    /* width: 180px;
+    height: 56px; */
+    padding: 18px 0;
     font-size: 1rem;
     text-align: center;
     opacity: ${props => props.disabled ? '0.5' : ''};

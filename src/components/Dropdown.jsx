@@ -2,18 +2,18 @@ import React from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types' 
 
-function Dropdown({ options, value, onChange, ...props }) {
+function Dropdown({ options, value, onChange, margin, ...props }) {
     const styles = {
         container: (provided) => ({
             ...provided,
-            maxWidth: '360px',
+            margin: margin ? margin : 0,
             boxShadow: '0px 4px 8px rgba(44, 39, 56, 0.04)',
             borderRadius: '6px',
         }),
 
         control: (provided, state) => ({
             ...provided,
-            padding: '1rem',
+            padding: '1rem 0.6rem',
             borderWidth: state.isFocused ? '2px' : '1px',
             borderColor: state.isFocused || state.isSelected  ? '#0880AE' : '#DBE2EA',
             boxShadow: 'none',
@@ -22,6 +22,11 @@ function Dropdown({ options, value, onChange, ...props }) {
                 borderWidth: '2px',
                 borderColor: '#0880AE' 
             }
+        }),
+
+        placeholder: () => ({
+            opacity: 0.5,
+            color: '#7C9CBF',
         }),
 
         singleValue: () => ({
@@ -61,7 +66,6 @@ function Dropdown({ options, value, onChange, ...props }) {
         styles={styles}
         components={{
             IndicatorSeparator: () => null,
-            Placeholder: () => null
         }}
         options={options}
         isSearchable={false}
