@@ -2,7 +2,7 @@ import React from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types' 
 
-function Dropdown({ options, value, onChange, margin, ...props }) {
+function Dropdown({ options, id, onChange, margin, ...props }) {
     const styles = {
         container: (provided) => ({
             ...provided,
@@ -69,8 +69,9 @@ function Dropdown({ options, value, onChange, margin, ...props }) {
         }}
         options={options}
         isSearchable={false}
-        value={value}
         onChange={onChange}
+        id={id}
+        name={id}
         {...props}
       />
     )
@@ -81,7 +82,6 @@ Dropdown.propTypes = {
         value: PropTypes.string,
         label: PropTypes.string
     })),
-    value: PropTypes.string,
     onChange: PropTypes.func
 }
 
@@ -90,7 +90,6 @@ Dropdown.defaultProps = {
         value: 'value',
         label: 'label'
     },
-    value: 'value',
     onChange: () => {}
 }
 
