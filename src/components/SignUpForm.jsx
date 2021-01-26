@@ -22,6 +22,11 @@ const Form = styled.form`
     flex-direction: column;
     padding: 40.41px 30px;
 `
+const FormField = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 34px;
+`
 
 const Title = styled.h1`
     margin-bottom: 8.53px;
@@ -41,7 +46,7 @@ const Link = styled.a`
 const CheckboxContainer = styled.div`
     display: flex;
     align-items: center;
-    margin: 6.74px 0 33.43px 0
+    margin: 6.74px 0 0 0
 `
 
 function SignUpForm() {
@@ -70,39 +75,56 @@ function SignUpForm() {
                     Уже есть аккаунт? <Link>Войти</Link>
                 </SubTitle>
 
-                <Label htmlFor="name">Имя</Label>
-                <TextField placeholder="Введите Ваше имя" margin="6.74px 0 33.43px 0" id="name" ref={register}/>
+                <FormField>
+                    <Label htmlFor="name">Имя</Label>
+                    <TextField 
+                    placeholder="Введите Ваше имя" 
+                    margin="6.74px 0 0 0" 
+                    id="name" 
+                    ref={register}
+                    />
+                    {errors.name && (<Error text={errors.name?.message} margin="8px 0 0 0" />)}
+                </FormField>
                 
-                {errors.name && (<Error text={errors.name?.message} />)}
 
-                <Label htmlFor="email">Еmail</Label>
-                <TextField placeholder="Введите Ваш email" margin="6.74px 0 33.43px 0" id="email" ref={register} />
+                <FormField>
+                    <Label htmlFor="email">Еmail</Label>
+                    <TextField 
+                    placeholder="Введите Ваш email" 
+                    margin="6.74px 0 0 0" 
+                    id="email" 
+                    ref={register} 
+                    />
+                    {errors.email && (<Error text={errors.email?.message} margin="8px 0 0 0" />)}
+                </FormField>
 
-                {errors.email && (<Error text={errors.email?.message} />)}
+                <FormField>
+                    <Label htmlFor="phone">Номер телефона</Label>
+                    <TextField placeholder="Введите номер телефона" margin="6.74px 0 0 0" id="phone" ref={register} />
+                    {errors.phone && (<Error text={errors.phone?.message} margin="8px 0 0 0" />)}
+                </FormField>
 
-                <Label htmlFor="phone">Номер телефона</Label>
-                <TextField placeholder="Введите номер телефона" margin="6.74px 0 33.43px 0" id="phone" ref={register} />
+                <FormField>
+                    <Label>Язык</Label>
+                    <Controller
+                    name="language"
+                    as={Dropdown}
+                    options={languageOptions}
+                    placeholder="Язык"
+                    margin="6.74px 0 0 0"
+                    control={control}
+                    defaultValue=""
+                    />
+                </FormField>
 
-                {errors.phone && (<Error text={errors.phone?.message} />)}
-
-                <Label>Язык</Label>
-
-                <Controller
-                name="language"
-                as={Dropdown}
-                options={languageOptions}
-                placeholder="Язык"
-                margin="6.74px 0 33.43px 0"
-                control={control}
-                defaultValue=""
-                />
-
-                <CheckboxContainer>
-                    <Checkbox id="policyCheckbox" ref={register} />
-                    <Label htmlFor="policyCheckbox" margin="0 0 0 8px">
-                        Принимаю <Link href="#"> условия </Link> использования
-                    </Label>
-                </CheckboxContainer>
+                <FormField>
+                    <CheckboxContainer>
+                        <Checkbox id="policyCheckbox" ref={register} />
+                        <Label htmlFor="policyCheckbox" margin="0 0 0 8px">
+                            Принимаю <Link href="#"> условия </Link> использования
+                        </Label>
+                    </CheckboxContainer>
+                </FormField>
 
                 <Button type="submit" disabled={!formState.isValid}>Зарегистрироваться</Button>
             </Form>
