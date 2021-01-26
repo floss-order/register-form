@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -49,6 +49,15 @@ function SignUpForm() {
         resolver: yupResolver(schema)
     })
 
+    const languageOptions = [
+        {value: 'Русский', label: 'Русский'},
+        {value: 'Английский', label: 'Английский'},
+        {value: 'Китайский', label: 'Китайский'},
+        {value: 'Испанский', label: 'Испанский'}
+    ]
+
+    const [languageOption, setLanguageOption] = useState(null)
+
     function onSubmit(data) {
         console.log(data)
     }
@@ -78,10 +87,10 @@ function SignUpForm() {
                 {errors.phone && (<Error text={errors.phone?.message} />)}
 
                 <Label>Язык</Label>
-                <Dropdown 
-                options={[
-                    {value: 'английский', label: 'Английский'}
-                ]}
+                <Dropdown
+                value={languageOption} 
+                options={languageOptions}
+                onChange={(language) => setLanguageOption(language)}
                 placeholder="Язык"
                 margin="6.74px 0 33.43px 0"
                 />
