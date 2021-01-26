@@ -45,8 +45,9 @@ const CheckboxContainer = styled.div`
 `
 
 function SignUpForm() {
-    const { register, handleSubmit, errors, control } = useForm({
+    const { register, handleSubmit, errors, control, formState } = useForm({
         resolver: yupResolver(schema),
+        mode: 'onChange'
     })
 
     const languageOptions = [
@@ -103,7 +104,7 @@ function SignUpForm() {
                     </Label>
                 </CheckboxContainer>
 
-                <Button type="submit">Зарегистрироваться</Button>
+                <Button type="submit" disabled={!formState.isValid}>Зарегистрироваться</Button>
             </Form>
         </StyledSignUpForm>
     )
