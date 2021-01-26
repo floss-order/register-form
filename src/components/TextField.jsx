@@ -22,20 +22,24 @@ const StyledTextField = styled.input`
     }
 `
 
-function TextField({placeholder, id, ...props}) {
+const TextField = React.forwardRef((props, ref) => {
+    const {placeholder, id, type} = props
+    
     return (
-        <StyledTextField placeholder={placeholder} name={id} id={id} type="text" {...props} />
+        <StyledTextField placeholder={placeholder} name={id} id={id} type={type} ref={ref} {...props} />
     )
-}
+})
 
 TextField.propTypes = {
     placeholder: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    type: PropTypes.string
 }
 
 TextField.defaultProps = {
     placeholder: 'Placeholder',
-    id: ''
+    id: '',
+    type: 'text'
 }
 
 export default TextField
