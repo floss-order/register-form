@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 const StyledError = styled.p`
+    margin: ${props => props.margin ? props.margin : 0};
     font-size: 0.875rem;
     color: #FF7171;
 `
 
 function Error({text, ...props}) {
     return (
-        <StyledError>
+        <StyledError {...props}>
             {text}
         </StyledError>
     )
