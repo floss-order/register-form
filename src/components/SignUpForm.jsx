@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import schema from '../schema'
 
@@ -45,8 +45,8 @@ const CheckboxContainer = styled.div`
 `
 
 function SignUpForm() {
-    const { register, handleSubmit, errors } = useForm({
-        resolver: yupResolver(schema)
+    const { register, handleSubmit, errors, control } = useForm({
+        resolver: yupResolver(schema),
     })
 
     const languageOptions = [
@@ -55,8 +55,6 @@ function SignUpForm() {
         {value: 'Китайский', label: 'Китайский'},
         {value: 'Испанский', label: 'Испанский'}
     ]
-
-    const [languageOption, setLanguageOption] = useState(null)
 
     function onSubmit(data) {
         console.log(data)
@@ -87,16 +85,19 @@ function SignUpForm() {
                 {errors.phone && (<Error text={errors.phone?.message} />)}
 
                 <Label>Язык</Label>
-                <Dropdown
-                value={languageOption} 
+
+                <Controller
+                name="language"
+                as={Dropdown}
                 options={languageOptions}
-                onChange={(language) => setLanguageOption(language)}
                 placeholder="Язык"
                 margin="6.74px 0 33.43px 0"
+                control={control}
+                defaultValue=""
                 />
 
                 <CheckboxContainer>
-                    <Checkbox id="policyCheckbox"/>
+                    <Checkbox id="policyCheckbox" ref={register} />
                     <Label htmlFor="policyCheckbox" margin="0 0 0 8px">
                         Принимаю <Link href="#"> условия </Link> использования
                     </Label>
