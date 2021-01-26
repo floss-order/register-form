@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
+import { useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 import Label from './Label'
 import TextField from './TextField'
 import Dropdown from './Dropdown'
 import Checkbox from './Checkbox/Checkbox'
 import Button from './Button'
+import Error from './Error'
 
 const StyledSignUpForm = styled.div`
     min-width: 360px;
@@ -40,24 +44,50 @@ const CheckboxContainer = styled.div`
     margin: 6.74px 0 33.43px 0
 `
 
+const nameRegExp = new RegExp('[A-Za-zА-Яа-яЁёІіЇїЄє]')
+const phoneRegExp = new RegExp(/^\+\d\(\d{3}\)\d{3}(-\d{2}){2}$/)
+
+const requiredMessage = 'Поле не должно быть пустым'
+const errorMessage = 'Введено некорректное значение'
+
+const schema = yup.object().shape({
+  name: yup.string().required(requiredMessage).matches(nameRegExp, errorMessage),
+  email: yup.string().required(requiredMessage).email(errorMessage),
+  phone: yup.string().required(requiredMessage).matches(phoneRegExp, errorMessage)
+}) 
+
 function SignUpForm() {
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(schema)
+    })
+
+    function onSubmit(data) {
+        console.log(data)
+    }
+
     return (
         <StyledSignUpForm>
-            <Form>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Title>Регистрация</Title>
 
                 <SubTitle>
                     Уже есть аккаунт? <Link>Войти</Link>
                 </SubTitle>
 
-                <Label>Имя</Label>
-                <TextField placeholder="Введите Ваше имя" margin="6.74px 0 33.43px 0" />
+                <Label htmlFor="name">Имя</Label>
+                <TextField placeholder="Введите Ваше имя" margin="6.74px 0 33.43px 0" id="name" ref={register}/>
+                
+                {errors.name && (<Error text={errors.name?.message} />)}
 
-                <Label>Еmail</Label>
-                <TextField placeholder="Введите Ваш email" margin="6.74px 0 33.43px 0" />
+                <Label htmlFor="email">Еmail</Label>
+                <TextField placeholder="Введите Ваш email" margin="6.74px 0 33.43px 0" id="email" ref={register} />
 
-                <Label>Номер телефона</Label>
-                <TextField placeholder="Введите номер телефона" margin="6.74px 0 33.43px 0" />
+                {errors.email && (<Error text={errors.email?.message} />)}
+
+                <Label htmlFor="phone">Номер телефона</Label>
+                <TextField placeholder="Введите номер телефона" margin="6.74px 0 33.43px 0" id="phone" ref={register} />
+
+                {errors.phone && (<Error text={errors.phone?.message} />)}
 
                 <Label>Язык</Label>
                 <Dropdown 
@@ -75,7 +105,7 @@ function SignUpForm() {
                     </Label>
                 </CheckboxContainer>
 
-                <Button disabled>Зарегистрироваться</Button>
+                <Button type="submit">Зарегистрироваться</Button>
             </Form>
         </StyledSignUpForm>
     )
