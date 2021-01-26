@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
+import schema from '../schema'
 
 import Label from './Label'
 import TextField from './TextField'
@@ -43,18 +43,6 @@ const CheckboxContainer = styled.div`
     align-items: center;
     margin: 6.74px 0 33.43px 0
 `
-
-const nameRegExp = new RegExp('[A-Za-zА-Яа-яЁёІіЇїЄє]')
-const phoneRegExp = new RegExp(/^\+\d\(\d{3}\)\d{3}(-\d{2}){2}$/)
-
-const requiredMessage = 'Поле не должно быть пустым'
-const errorMessage = 'Введено некорректное значение'
-
-const schema = yup.object().shape({
-  name: yup.string().required(requiredMessage).matches(nameRegExp, errorMessage),
-  email: yup.string().required(requiredMessage).email(errorMessage),
-  phone: yup.string().required(requiredMessage).matches(phoneRegExp, errorMessage)
-}) 
 
 function SignUpForm() {
     const { register, handleSubmit, errors } = useForm({
